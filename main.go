@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"flag"
+	"net/http"
+	"log"
 
 	"github.com/bold-commerce/go-shopify"
 )
@@ -21,12 +23,27 @@ func main() {
 	// Create a new API client
 	client := goshopify.NewClient(app, "kburns-test-store", "")
 
-	// Fetch the number of products.
-	numProducts, err := client.Product.Count(nil)
-	if err != nil {
-		panic(err)
-	}
+    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("content-type", "text/html")
+		// Fetch the number of products.
+		numProducts, err := client.Product.Count(nil)
+		if err != nil {
+			fmt.Fprint(w, err)
+			return
+		}
+		fmt.Fprintf(w, "<p>Total Products: %d</p>", numProducts)
 
-	fmt.Println(numProducts)
+		// Fetch the number of products.
+		products, err := client.Product.List(nil)
+		if err != nil {
+			fmt.Fprint(w, err)
+			return
+		}
+		for _, p := range products {
+			fmt.Fprintf(w, "<p style='background: #e9e9e9; padding: 1em; '>%d: %s\n<br/>", p.ID, p.Title)
+			fmt.Fprintf(w, "<img src='%s' width='200'/></p>\n", p.Image.Src)
+		}
+	})
+    log.Fatal(http.ListenAndServe(":8060", nil))
 
 }
