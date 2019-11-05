@@ -44,8 +44,8 @@ func main() {
 			fmt.Fprintf(w, "<img src='%s' width='200'/></p>\n", p.Image.Src)
 		}
 
-		fmt.Fprint(w, "<p><a href='https://kburns-test-store.myshopify.com/'>https://kburns-test-store.myshopify.com/</a></p>")
-		fmt.Fprint(w, "<p><a href='https://github.com/kevburnsjr/shorpify'>https://github.com/kevburnsjr/shorpify</a></p>")
+		fmt.Fprint(w, "<p><a href='https://kburns-test-store.myshopify.com/'>https://kburns-test-store.myshopify.com/</a><br>")
+		fmt.Fprint(w, "<a href='https://github.com/kevburnsjr/shorpify'>https://github.com/kevburnsjr/shorpify</a></p>")
 	})
     log.Fatal(http.ListenAndServe(":8060", nil))
 
