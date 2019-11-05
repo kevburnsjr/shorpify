@@ -43,6 +43,8 @@ func main() {
 			fmt.Fprintf(w, "<p style='background: #e9e9e9; padding: 1em; '>%d: %s\n<br/>", p.ID, p.Title)
 			fmt.Fprintf(w, "<img src='%s' width='200'/></p>\n", p.Image.Src)
 		}
+
+		fmt.Fprint(w, "<p><a href='https://github.com/kevburnsjr/shorpify'>https://github.com/kevburnsjr/shorpify</a></p>")
 	})
     log.Fatal(http.ListenAndServe(":8060", nil))
 
