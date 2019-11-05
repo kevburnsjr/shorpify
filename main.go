@@ -1,10 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"flag"
-	"net/http"
+	"fmt"
 	"log"
+	"net/http"
 
 	"github.com/bold-commerce/go-shopify"
 )
@@ -16,14 +16,14 @@ func main() {
 	flag.Parse()
 
 	app := goshopify.App{
-		ApiKey: *apiKey,
+		ApiKey:   *apiKey,
 		Password: *apiPass,
 	}
 
 	// Create a new API client
 	client := goshopify.NewClient(app, "kburns-test-store", "")
 
-    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("content-type", "text/html")
 		// Fetch the number of products.
 		numProducts, err := client.Product.Count(nil)
@@ -49,6 +49,6 @@ func main() {
 			<a href='https://github.com/kevburnsjr/shorpify' target='_blank'>https://github.com/kevburnsjr/shorpify</a>
 		</p>`)
 	})
-    log.Fatal(http.ListenAndServe(":8060", nil))
+	log.Fatal(http.ListenAndServe(":8060", nil))
 
 }
