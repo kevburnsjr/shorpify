@@ -25,6 +25,7 @@ func main() {
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("content-type", "text/html")
+
 		// Fetch the number of products.
 		numProducts, err := client.Product.Count(nil)
 		if err != nil {
@@ -33,7 +34,7 @@ func main() {
 		}
 		fmt.Fprintf(w, "<p>Total Products: %d</p>", numProducts)
 
-		// Fetch the number of products.
+		// Fetch product list
 		products, err := client.Product.List(nil)
 		if err != nil {
 			fmt.Fprint(w, err)
@@ -44,6 +45,7 @@ func main() {
 			fmt.Fprintf(w, "<img src='%s' width='200'/></p>\n", p.Image.Src)
 		}
 
+		// Links
 		fmt.Fprint(w, `<p>
 			<a href='https://kburns-test-store.myshopify.com/' target='_blank'>https://kburns-test-store.myshopify.com/</a><br>
 			<a href='https://github.com/kevburnsjr/shorpify' target='_blank'>https://github.com/kevburnsjr/shorpify</a>
